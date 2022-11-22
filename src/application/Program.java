@@ -1,27 +1,23 @@
 package application;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-
-import entities.Product;
-import model.services.ProductService;
+import java.util.stream.Stream;
 
 public class Program {
 
 	public static void main(String[] args) {
-		Locale.setDefault(Locale.US);
-		List<Product> list = new ArrayList<>();
+		List<Integer> list = Arrays.asList(3, 4, 5, 10, 7);
+		Stream<Integer> st1 = list.stream().map(x -> x * 10);//com .map() fez 10x cada 
+		System.out.println(Arrays.toString(st1.toArray()));//vai imprimir String na tela
 
-		list.add(new Product("Tv", 900.00));
-		list.add(new Product("Mouse", 50.00));
-		list.add(new Product("Tablet", 350.50));
-		list.add(new Product("HD Case", 80.90));
-		
-		ProductService ps = new ProductService();
+		Stream<String> st2 = Stream.of("Maria", "Alex", "Bob");
+		System.out.println(Arrays.toString(st2.toArray()));
 
-		double sum = ps.filteredSum(list, p -> p.getName().charAt(0) == 'T');
+		Stream<Integer> st3 = Stream.iterate(0, x -> x + 2);
+		System.out.println(Arrays.toString(st3.limit(10).toArray()));
 
-		System.out.println("Sum = " + String.format("%.2f", sum));
+		Stream<Long> st4 = Stream.iterate(new long[] { 0L, 1L }, p -> new long[] { p[1], p[0] + p[1] }).map(p -> p[0]);
+		System.out.println(Arrays.toString(st4.limit(10).toArray()));
 	}
 }
